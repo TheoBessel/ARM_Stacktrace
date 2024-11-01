@@ -9,7 +9,6 @@ WORKSPACE 	 = .
 SRC_DIR		 = $(WORKSPACE)/src
 BUILD_DIR	 = $(WORKSPACE)/build
 BSPs_DIR	 = $(WORKSPACE)/tools/bsp
-HALs_DIR	 = $(WORKSPACE)/tools/hal
 ######################################
 
 
@@ -37,8 +36,7 @@ CORE_SELECT  = -DCORE_CM7
 ######################################
 
 
-#############  HAL & BSP  ############
-HAL_DIR		 = $(HALs_DIR)/$(CHIP_FAMILLY)_hal_conf.mk
+################  BSP  ###############
 BSP_DIR		 = $(BSPs_DIR)/$(BOARD)-BSP
 LINKER		 = $(BSP_DIR)/$(BOARD).ld
 ######################################

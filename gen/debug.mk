@@ -2,10 +2,16 @@
 .PHONY += readelf size
 
 readelf:
-	$(READELF) -a $(TARGET) > $(TARGET:.elf=.readelf)
+	@$(READELF) -a $(TARGET) > $(TARGET:.elf=.readelf)
+	@echo "[ =========================================================== ]"
+	@echo "|                       Readelf saved !                       |"
+	@echo "[ =========================================================== ]"
 
 size:
-	$(SIZE) $(TARGET) > $(TARGET:.elf=.size)
+	@$(SIZE) $(TARGET) > $(TARGET:.elf=.size)
+	@echo "[ =========================================================== ]"
+	@echo "|                        Size saved !                         |"
+	@echo "[ =========================================================== ]"
 ######################################
 
 ###############  Debug  ##############
