@@ -17,14 +17,14 @@ size:
 ###############  Debug  ##############
 .PHONY += gdb debug
 
-gdb: clean build
+gdb: clean build readelf
 	@echo "[ =========================================================== ]"
 	@echo "|                       Starting QEMU ...                     |"
 	@make debug &
 	@echo "[ =========================================================== ]"
 	@echo "|                       Starting GDB ...                      |"
 	@echo "| ----------------------------------------------------------- |"
-	@$(GDB) -q --eval-command="target remote:1234" $(TARGET)
+	@$(GDB) -q -x $(SCRIPT_DIR)/stacktrace.gdb $(TARGET)
 	@echo "| ----------------------------------------------------------- |"
 	@echo "|                        GDB exited !                         |"
 	@echo "[ =========================================================== ]"

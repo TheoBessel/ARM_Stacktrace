@@ -9,6 +9,7 @@ WORKSPACE 	 = .
 SRC_DIR		 = $(WORKSPACE)/src
 BUILD_DIR	 = $(WORKSPACE)/build
 BSPs_DIR	 = $(WORKSPACE)/tools/bsp
+SCRIPT_DIR	 = $(WORKSPACE)/script
 ######################################
 
 

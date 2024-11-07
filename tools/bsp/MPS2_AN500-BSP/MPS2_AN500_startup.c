@@ -36,10 +36,10 @@ void Default_Handler(void);
  */
  void Reset_Handler(void);
  void NMI_Handler(void)             __attribute__ ((alias("Default_Handler")));
- void HardFault_Handler(void)       __attribute__ ((alias("Default_Handler")));
- void MemManage_Handler(void)       __attribute__ ((alias("Default_Handler")));
- void BusFault_Handler(void)        __attribute__ ((alias("Default_Handler")));
- void UsageFault_Handler(void)      __attribute__ ((alias("Default_Handler")));
+ extern void HardFault_Handler(void);
+ extern void MemManage_Handler(void);
+ extern void BusFault_Handler(void);
+ extern void UsageFault_Handler(void);
  void SVCall_Handler(void)          __attribute__ ((alias("Default_Handler")));
  void DebugMonitor_Handler(void)    __attribute__ ((alias("Default_Handler")));
  void PendSV_Handler(void)          __attribute__ ((alias("Default_Handler")));
