@@ -2,6 +2,8 @@
 
 This project is part of the **TOLOSAT flight software**, which I am currently developing. The goal is to create a Fault Detection, Isolation, and Recovery (FDIR) mechanism for robust fault management.
 
+The repository is available **[here](https://github.com/TheoBessel/ARM_Stacktrace)**.
+
 ## Motivation
 
 The FDIR system is crucial for the ARM Cortex-M7 microcontroller that powers the TOLOSAT software. To effectively detect and isolate faults, we needed a way to trace the call stack, which is commonly known as a stacktrace mechanism.
