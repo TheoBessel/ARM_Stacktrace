@@ -50,12 +50,12 @@ Below is an excerpt from the `.ARM.exidx` section of our ELF file:
 ### Decoding Stack Unwinding Instructions
 
 I developed functions to decode the `.ARM.exidx` and `.ARM.extab` information and retrieve the call stack trace. The implementation details can be found in:
-- **[fdir.c](https://github.com/TheoBessel/ARM_Stacktrace/src/fdir.c)**: Contains the core functions for decoding unwind instructions.
+- **[fdir.c](https://github.com/TheoBessel/ARM_Stacktrace/tree/main/src/fdir.c)**: Contains the core functions for decoding unwind instructions.
 
 ### Debugging and Challenges
 
 Understanding the ARM exception handling and unwinding tables took considerable effort, alongside rigorous debugging. Some debugging snippets used during development are available in:
-- **[stacktrace.gdb](https://github.com/TheoBessel/ARM_Stacktrace/script/stacktrace.gdb)**: GDB script with debugging aids for tracing the stack.
+- **[stacktrace.gdb](https://github.com/TheoBessel/ARM_Stacktrace/tree/main/script/stacktrace.gdb)**: GDB script with debugging aids for tracing the stack.
 
 I also optimized a few functions using pure programming techniques to improve performance and memory usage (using pure functions and `__attribute__((pure))`).
 
