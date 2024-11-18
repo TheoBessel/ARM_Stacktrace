@@ -52,6 +52,7 @@ CC_FLAGS 	+= -D$(BOARD) -D$(CHIP)
 CC_FLAGS 	+= -g3 -DDEBUG -O0
 CC_FLAGS	+= -I$(SRC_DIR)
 # Unwind specific
+CC_FLAGS	+= -funwind-tables
 CC_FLAGS 	+= -fexceptions
 #CC_FLAGS 	+= -fno-omit-frame-pointer
 

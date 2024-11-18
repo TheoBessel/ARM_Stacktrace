@@ -25,9 +25,13 @@ end
 # Debug the frame loop
 define debug_frame
     # On UnwindNextFrame call (in UnwindStack)
-    break fdir.c:114
+    break fdir.c:123
     continue
     p/x *debug_info->call_stack
 end
 
 debug_layout
+
+# Go to main
+break main
+continue
