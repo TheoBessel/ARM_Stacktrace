@@ -1,4 +1,4 @@
-# Implementing a Stacktrace on ARM Cortex-M7
+# Implementing a Stacktrace on ARMv7-M
 
 This project is part of the **TOLOSAT flight software**, which I am currently developing. The goal is to create a Fault Detection, Isolation, and Recovery (FDIR) mechanism for robust fault management.
 
@@ -6,12 +6,12 @@ The repository is available **[here](https://github.com/TheoBessel/ARM_Stacktrac
 
 ## Motivation
 
-The FDIR system is crucial for the ARM Cortex-M7 microcontroller that powers the TOLOSAT software. To effectively detect and isolate faults, we needed a way to trace the call stack, which is commonly known as a stacktrace mechanism.
+The FDIR system is crucial for the Cortex-M7 microcontroller that powers the TOLOSAT software. To effectively detect and isolate faults, we needed a way to trace the call stack, which is commonly known as a stacktrace mechanism.
 
-## Challenges on ARM Cortex-M7
+## Challenges on ARMv7-M
 
-Unlike x86 architectures, implementing stack tracing on an ARM Cortex-M7 microcontroller presents unique challenges:
-- **Variable-sized Stack Frames**: The ARM Cortex-M7 uses stack frames with variable sizes to optimize memory, meaning the stack pointer (SP) and frame pointer (FP) are not always aligned to predictable addresses.
+Unlike x86 architectures, implementing stack tracing on an ARMv7-M microcontroller presents specific challenges:
+- **Variable-sized Stack Frames**: The ARMv7-M architecture uses stack frames with variable sizes to optimize memory, meaning the stack pointer (SP) and frame pointer (FP) are not always aligned to predictable addresses.
 - **Unusable Frame Pointer (FP)**: Initial attempts to use the frame pointer failed, as the address alignment was unreliable.
 
 ## Stack Unwinding with ARM EHABI
@@ -50,7 +50,8 @@ Below is an excerpt from the `.ARM.exidx` section of our ELF file:
 ### Decoding Stack Unwinding Instructions
 
 I developed functions to decode the `.ARM.exidx` and `.ARM.extab` information and retrieve the call stack trace. The implementation details can be found in:
-- **[fdir.c](https://github.com/TheoBessel/ARM_Stacktrace/tree/main/src/fdir.c)**: Contains the core functions for decoding unwind instructions.
+- **[fdir.c](https://github.com/TheoBessel/ARM_Stacktrace/tree/main/src/fdir.c)**: Contains the core functions for Error Exception Handling (EEH).
+- **[stacktrace.c](https://github.com/TheoBessel/ARM_Stacktrace/tree/main/src/stacktrace.c)**: Contains the core functions for decoding unwind stack.
 
 ### Debugging and Challenges
 
@@ -61,8 +62,8 @@ I also optimized a few functions using pure programming techniques to improve pe
 
 ## Current Status
 
-The stacktrace mechanism operates on a bare-metal environment but is not fully complete. There are persistent bugs affecting the unwinding in certain edge cases that still need to be resolved.
+The stacktrace mechanism operates on a bare-metal environment, it has also been tested on a FreeRTOS environment.
+Major bugs have been fixed, and the stacktrace mechanism is now stable and reliable.
 
 ## Future Work
-- **Fix Bugs**: Continue debugging to ensure the mechanism works reliably in all scenarios.
 - **Optimization**: Improve performance and memory usage where possible.
