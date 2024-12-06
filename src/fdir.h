@@ -1,7 +1,7 @@
 /**
  * @file    fdir.h
  * @author  Théo Bessel
- * @brief   Error Management functions
+ * @brief   Interface for Failure Detection, Identification and Recovery (FDIR).
  *
  * @copyright Copyright (c) Théo Bessel 2024
  */
@@ -11,85 +11,41 @@
 
 /******************************* Include Files *******************************/
 
-#include <stdint.h>
+#include "stacktrace.h"
 
 /***************************** Macros Definitions ****************************/
-
-#define CALL_STACK_SIZE 20u
 
 /***************************** Types Definitions *****************************/
 
 /**
- * @struct  savedRegisters_t
- * @brief   Structure that saves the registers of the processor when an error occurs
+ * @brief Structure to store saved CPU registers during an error.
  */
 typedef struct __attribute__((packed))
 {
-    uint32_t r[4];
-    uint32_t r12;
-    uint32_t lr;
-    uint32_t pc;
-    uint32_t xpsr;
+    uint32_t r[4];                  /**< General-purpose registers R0-R3.    */
+    uint32_t r12;                   /**< Register R12.                       */
+    uint32_t lr;                    /**< Link register (LR).                 */
+    uint32_t pc;                    /**< Program counter (PC).               */
+    uint32_t xpsr;                  /**< Program status register (xPSR).     */
 } savedRegisters_t;
 
 /**
- * @struct  call_t
- * @brief   Structure that saves the `lr` and the `fp` of a frame
- */
-typedef struct __attribute__((packed))
-{
-    uint32_t lr;
-    uint32_t fp;
-} call_t;
-
-/**
- * @struct  callStack_t
- * @brief   Structure that saves the call stack when an error occurs
- */
-typedef struct __attribute__((packed))
-{
-    uint32_t size;
-    call_t calls[CALL_STACK_SIZE];
-} callStack_t;
-
-/**
- * @struct  debugInfo_t
- * @brief   Structure that saves the general debug information when an error occurs
- * Note : sp is the address pointed by `registers`
+ * @brief General debug information captured during an error.
  */
 typedef struct
 {
-    savedRegisters_t *registers;
-    uint32_t cfsr;
-    uint32_t hfsr;
-    callStack_t *call_stack;
+    savedRegisters_t* registers;    /**< Pointer to saved CPU registers.     */
+    uint32_t cfsr;                  /**< Configurable Fault Status Register. */
+    uint32_t hfsr;                  /**< Hard Fault Status Register.         */
+    callStack_t call_stack;         /**< Captured call stack.                */
 } debugInfo_t;
-
-/**
- * @struct  exidxEntry_t
- * @brief   Structure that handle exidx raw and decoded entries
- */
-typedef struct __attribute__((packed))
-{
-    uint32_t exidx_entry;
-    uint32_t exidx_fn;
-    uint32_t decoded_entry;
-    uint32_t decoded_fn;
-} exidxEntry_t;
-
 
 /*************************** Variables Declarations **************************/
 
-extern uint32_t __exidx_start;
-extern uint32_t __exidx_end;
-
-extern uint32_t __extab_start;
-extern uint32_t __extab_end;
+extern void InitFDIR(void);
+extern void SaveRegisters(debugInfo_t* debug_info);
+extern void PrepareUnwind(call_t* last_call);
 
 /*************************** Functions Declarations **************************/
-
-extern void InitFDIR(void);
-extern void SaveRegisters(debugInfo_t** debug_info);
-extern void UnwindStack(debugInfo_t** debug_info);
 
 #endif /* FDIR_H */

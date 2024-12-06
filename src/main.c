@@ -15,7 +15,8 @@ void __attribute__((noinline)) function_c(uint32_t c) {
     volatile uint32_t a = c + 43;
     volatile uint32_t b = 0;
 
-//    printf("%d", (int) a);
+    printf("%d", (int) a);
+    printf("%d", (int) b);
 
     // Causes UsageFault
     volatile uint32_t result = a / b;
@@ -27,12 +28,17 @@ void __attribute__((noinline)) function_b(uint32_t b) {
     // Random operation to have frames with registers pushed on the stack
     volatile uint32_t c = 32 - b;
 
+    printf("%d", (int) b);
+    printf("%d", (int) c);
+
     // Calling function_c (which causes UsageFault)
     function_c(c);
 }
 
 void __attribute__((noinline)) function_a(uint32_t a) {
     // Random operation to have frames with registers pushed on the stack
+
+    printf("%d", (int) a);
 
     // Calling function_b (which calls function_c that causes UsageFault)
     function_b(a - 10);
